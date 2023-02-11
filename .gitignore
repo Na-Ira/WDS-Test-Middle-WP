@@ -1,0 +1,10 @@
+#workspace
+*.code-workspace
+logs/
+
+#configs
+*.config
+.vscode
+.DR_Store
+*.code-workspace
+
