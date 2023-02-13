@@ -131,7 +131,8 @@ body {
   margin: 0;
   min-width: 20rem;
   line-height: var(--body-line-height);
-  background-color: var(--main-bg);
+  /* background-color: var(--main-bg); */
+  background-color: #3b7a64;
   font-size: 16px;
   height: 100%;
 }
@@ -256,6 +257,9 @@ LOADER =================
 */
 .navbar {
   padding: 0;
+}
+.sub-menu-toggle {
+  display: none;
 }
 .navbar#mainNav {
   transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;

@@ -26,7 +26,7 @@ define( 'DB_NAME', 'maleich_web-test' );
 define( 'DB_USER', 'maleich_web-test' );
 
 /** Database password */
-define( 'DB_PASSWORD', '240709Art' );
+define( 'DB_PASSWORD', '9#LllroXA3KY' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
@@ -79,7 +79,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 

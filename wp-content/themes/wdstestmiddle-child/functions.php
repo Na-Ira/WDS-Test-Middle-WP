@@ -8,35 +8,6 @@
  * @package aa
  */
   
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
-if ( ! function_exists( 'aa_enqueue_styles' ) ) {
-    // Add enqueue function to the desired action.
-    add_action( 'wp_enqueue_scripts', 'aa_enqueue_styles' );
-     
-    /**
-     * Enqueue Styles.
-     *
-     * Enqueue parent style and child styles where parent are the dependency
-     * for child styles so that parent styles always get enqueued first.
-     *
-     * @since 1.0.0
-     */
-    function aa_enqueue_styles() {
-        // Parent style variable.
-        $parent_style = 'parent-style';
-         
-        // Enqueue Parent theme's stylesheet.
-        wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
-         
-        // Enqueue Child theme's stylesheet.
-        // Setting 'parent-style' as a dependency will ensure that the child theme stylesheet loads after it.
-        wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( $parent_style ) );
-    }
-}
-
 /*
 ======= Disable unnecessary parent theme styles =====================
 */
@@ -93,6 +64,10 @@ function my_styles_and_scripts() {
 	wp_register_style( 'variables', get_stylesheet_directory_uri() . '/assets/css/variables.css', array() );
 	wp_enqueue_style( 'variables' );
 
+    // child-style css
+	wp_register_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array() );
+	wp_enqueue_style( 'child-style' );
+
     /*
     Script ------------------------
     */
@@ -142,5 +117,65 @@ function my_styles_and_scripts() {
 	);
 }
 
+/* 
+======= NAV MENU ==================================
+*/
+/**
+ * Register Custom Navigation Walker
+*/
+function register_navwalker(){
+	// Connects only to the parent theme
+	require_once  get_template_directory() . '/classes/class-wp-bootstrap-navwalker.php';
+	// require_once get_theme_file_uri() .'/classes/class-wp-bootstrap-navwalker.php';
+}
+add_action( 'after_setup_theme', 'register_navwalker' );
+
+// declare a new menu
+register_nav_menus( array(
+	'primary' => __( 'Header Menu', 'wdstestmiddle-child' ),
+) );
+
+// Adds a data attribute for dropdown toggles
+function prefix_bs5_dropdown_data_attribute( $atts, $item, $args ) {
+    if ( is_a( $args->walker, 'WP_Bootstrap_Navwalker' ) ) {
+        if ( array_key_exists( 'data-toggle', $atts ) ) {
+            unset( $atts['data-toggle'] );
+            $atts['data-bs-toggle'] = 'dropdown';
+				$atts['data-bs-auto-close'] = 'outside';
+        }
+    }
+    return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'prefix_bs5_dropdown_data_attribute', 20, 3 );
 
 
+
+// Adds additional classes to dropdown-menu
+function custom_dropdown_class( $classes, $args, $depth ) {
+	$animate_classes = 'animate slide-in';
+	$add_sub_dropdown = 'submenu-dropdown';
+
+   if ( $classes && $depth === 0 ) {
+		$classes[] = $animate_classes;
+	}
+	elseif ( $classes && $depth > 0 ) {
+		$classes[] = $animate_classes . ' ' . $add_sub_dropdown; 
+	}
+
+	return $classes;
+}
+add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 1, 3 );
+
+
+
+/* 
+======= END NAV MENU ==================================
+*/
+
+	// function special_nav_class ($classes, $item) {
+	// 	if (in_array('nav-link', $classes) ){
+	// 	  $classes[] .= ' active';
+	// 	}
+	// 	return $classes;
+	//  }
+	 
