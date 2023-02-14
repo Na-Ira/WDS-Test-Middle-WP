@@ -11,50 +11,42 @@
  */
 
 ?>
-	</main><!-- #main -->
+	</main>
+	<!-- main -->
 
 
-	<footer id="colophon" class="site-footer">
-
-		<?php if ( has_nav_menu( 'footer' ) ) : ?>
-			<nav aria-label="<?php esc_attr_e( 'Secondary menu', 'twentytwentyone' ); ?>" class="footer-navigation">
-				<ul class="footer-navigation-wrapper">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'footer',
-							'items_wrap'     => '%3$s',
-							'container'      => false,
-							'depth'          => 1,
-							'link_before'    => '<span>',
-							'link_after'     => '</span>',
-							'fallback_cb'    => false,
-						)
-					);
+	<footer class="footer">
+		<div class="logo text-center">
+			<?php 
+            if ( function_exists( 'the_custom_logo' ) ) {
+                 the_custom_logo();
+            }
+			?>
+      </div>
+      <nav class="nav">
+				<?php
+							wp_nav_menu(
+								array(
+									'theme_location' => 'secondary',
+									'items_wrap'     => '%3$s',
+									'depth'          => 1,
+									'container'      => false,
+									'menu_class'     => 'navbar-nav d-flex flex-row',
+									'li_class'       => 'nav-item',
+                           'a_class'        => 'nav-link',
+									'fallback_cb'    => false,
+									'walker'         => new WP_Bootstrap_Navwalker(),
+								)
+							);
 					?>
-				</ul><!-- .footer-navigation-wrapper -->
-			</nav><!-- .footer-navigation -->
-		<?php endif; ?>
+        </nav>
+		  <p class="copyright mb-0 text-center">
+          Copyright &copy; 2021 All right reserved
+        </p>
+	</footer>
 
-		<div class="site-info">
-			<div class="site-name">
-				<?php if ( has_custom_logo() ) : ?>
-					<div class="site-logo"><?php the_custom_logo(); ?></div>
-				<?php else : ?>
-					<?php if ( get_bloginfo( 'name' ) && get_theme_mod( 'display_title_and_tagline', true ) ) : ?>
-						<?php if ( is_front_page() && ! is_paged() ) : ?>
-							<?php bloginfo( 'name' ); ?>
-						<?php else : ?>
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-						<?php endif; ?>
-					<?php endif; ?>
-				<?php endif; ?>
-			</div><!-- .site-name -->
-
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
-
-</div><!-- #page -->
+</div>
+<!-- wrapper -->
 
 <?php wp_footer(); ?>
 

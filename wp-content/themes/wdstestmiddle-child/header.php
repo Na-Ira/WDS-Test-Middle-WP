@@ -42,7 +42,7 @@
          <header class="header">
             <nav class="navbar fixed-top navbar-expand-lg" id="mainNav">
                <div class="container-fluid navbar-container">
-                  <a class="navbar-brand" href="#">
+                  <a class="navbar-brand" href="<?php echo home_url( ); ?>">
                      <?php 
                      if ( function_exists( 'the_custom_logo' ) ) {
                         the_custom_logo();
@@ -66,22 +66,22 @@
                   </button>
                   <!-- Navigation-->
                   <?php 
-         wp_nav_menu( 
-          $args = array ( 
-               'theme_location'  => 'primary',
-               'depth'           => 5,
-               'container'       => 'div',
-               'container_class' => 'collapse navbar-collapse',
-               'menu_class'      => 'navbar-nav ms-auto py-4 py-lg-0',
-               'li_class'        => 'nav-item',
-               'a_class'         => 'nav-link',
-               'active_class'    => 'active',
-               'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-               'fallback_cb'     => false,
-               'walker'          => new WP_Bootstrap_Navwalker(),
-             ) 
-           ); 
-        ?>
+                     wp_nav_menu( 
+                        array ( 
+                           'theme_location'  => 'primary',
+                           'depth'           => 5,
+                           'container'       => 'div',
+                           'container_class' => 'collapse navbar-collapse',
+                           'menu_class'      => 'navbar-nav ms-auto py-4 py-lg-0',
+                           'li_class'        => 'nav-item',
+                           'a_class'         => 'nav-link',
+                           'active_class'    => 'active',
+                           'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                           'fallback_cb'     => false,
+                           'walker'          => new WP_Bootstrap_Navwalker(),
+                        ) 
+                     ); 
+                  ?>
                </div>
             </nav>
          </header>
