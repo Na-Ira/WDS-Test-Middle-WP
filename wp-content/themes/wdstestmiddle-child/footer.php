@@ -11,20 +11,20 @@
  */
 
 ?>
-	</main>
-	<!-- main -->
+</main>
+<!-- main -->
 
 
-	<footer class="footer">
-		<div class="logo text-center">
-			<?php 
+<footer class="footer">
+   <div class="logo text-center">
+      <?php 
             if ( function_exists( 'the_custom_logo' ) ) {
                  the_custom_logo();
             }
 			?>
-      </div>
-      <nav class="nav">
-				<?php
+   </div>
+   <nav class="nav">
+      <?php
 							wp_nav_menu(
 								array(
 									'theme_location' => 'secondary',
@@ -39,11 +39,11 @@
 								)
 							);
 					?>
-        </nav>
-		  <p class="copyright mb-0 text-center">
-          Copyright &copy; 2021 All right reserved
-        </p>
-	</footer>
+   </nav>
+   <p class="copyright mb-0 text-center">
+      Copyright &copy; 2021 All right reserved
+   </p>
+</footer>
 
 </div>
 <!-- wrapper -->
@@ -51,4 +51,5 @@
 <?php wp_footer(); ?>
 
 </body>
+
 </html>
