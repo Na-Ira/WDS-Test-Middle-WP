@@ -976,6 +976,9 @@ MEDIA  =================
     padding: 2.5rem 1.65rem;
     transition: padding 0.3s ease-in-out;
   }
+  .navbar .navbar-nav .dropdown-container .nav-item .nav-link.dropdown-toggle {
+    padding: 0.625rem 1.25rem;
+  }
   .navbar .navbar-nav .nav-item:last-child .nav-link {
     padding-right: 0;
   }
@@ -1199,6 +1202,10 @@ MEDIA  =================
   }
   .navbar .navbar-container .navbar-nav .nav-link {
     padding: 1rem 0;
+    border-bottom: 0.067rem solid transparent;
+  }
+  .navbar .navbar-nav .dropdown-container .nav-item .nav-link.dropdown-toggle {
+    padding: 0.25rem 1rem;
   }
   .navbar .navbar-container .navbar-nav .nav-link.show {
     border-bottom: 0.067rem solid rgba(255, 255, 255, 0.3);

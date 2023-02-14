@@ -158,13 +158,13 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
 function register_navwalker(){
 	// Connects only to the parent theme
 	require_once  get_template_directory() . '/classes/class-wp-bootstrap-navwalker.php';
-	// require_once get_theme_file_uri() .'/classes/class-wp-bootstrap-navwalker.php';
 }
 add_action( 'after_setup_theme', 'register_navwalker' );
 
-// declare a new menu
+// Register Nav Menus
 register_nav_menus( array(
 	'primary' => __( 'Header Menu', 'wdstestmiddle-child' ),
+	'secondary' => __( 'Footer Menu', 'wdstestmiddle-child' ),
 ) );
 
 // Adds a data attribute for dropdown toggles
@@ -174,6 +174,7 @@ function prefix_bs5_dropdown_data_attribute( $atts, $item, $args ) {
             unset( $atts['data-toggle'] );
             $atts['data-bs-toggle'] = 'dropdown';
 				$atts['data-bs-auto-close'] = 'outside';
+				$atts['type'] = 'button';
         }
     }
     return $atts;
@@ -196,7 +197,9 @@ function custom_dropdown_class( $classes, $args, $depth ) {
 
 	return $classes;
 }
-add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 1, 3 );
+add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 10, 4 );
+
+
 
 
 /* 
