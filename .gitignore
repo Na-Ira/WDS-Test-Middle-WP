@@ -7,4 +7,5 @@ logs/
 .vscode
 .DR_Store
 *.code-workspace
+*.sql
 
