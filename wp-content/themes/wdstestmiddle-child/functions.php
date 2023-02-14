@@ -48,7 +48,7 @@ function remove_twenty_twenty_one_responsive_embeds_script() {
 }
 
 /* 
-======= Add styles and scripts js ==================================
+======= Add styles and scripts js =============
 */
 
 add_action('wp_enqueue_scripts', 'my_styles_and_scripts');
@@ -65,7 +65,7 @@ function my_styles_and_scripts() {
 	wp_enqueue_style( 'variables' );
 
     // child-style css
-	wp_register_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array() );
+	wp_register_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array(), time() );
 	wp_enqueue_style( 'child-style' );
 
     /*
@@ -74,7 +74,7 @@ function my_styles_and_scripts() {
     // Bootstrap
 	wp_enqueue_script( 
 		'bootstrap', 
-		get_stylesheet_directory_uri() . '/assets/js/bootstrap.bundle.min.js',
+		get_stylesheet_directory_uri() . '/assets/js/vendor/bootstrap.bundle.min.js',
 		array(),
 		time(),
 		true // true - in footer, false – in header
@@ -83,7 +83,7 @@ function my_styles_and_scripts() {
     // Aos
 	wp_enqueue_script( 
 		'aos', 
-		get_stylesheet_directory_uri() . '/assets/js/aos.min.js',
+		get_stylesheet_directory_uri() . '/assets/js/vendor/aos.min.js',
 		array(),
 		time(),
 		true
@@ -92,7 +92,7 @@ function my_styles_and_scripts() {
     // Splide
 	wp_enqueue_script( 
 		'splide', 
-		get_stylesheet_directory_uri() . '/assets/js/splide.min.js',
+		get_stylesheet_directory_uri() . '/assets/js/vendor/splide.min.js',
 		array(),
 		time(),
 		true
@@ -101,7 +101,7 @@ function my_styles_and_scripts() {
     // Splide video
 	wp_enqueue_script( 
 		'splide-video-js', 
-		get_stylesheet_directory_uri() . '/assets/js/splide-extension-video.min.js',
+		get_stylesheet_directory_uri() . '/assets/js/vendor/splide-extension-video.min.js',
 		array(),
 		time(),
 		true
@@ -116,6 +116,38 @@ function my_styles_and_scripts() {
 		true
 	);
 }
+
+/* 
+======= For SVG Upload ==================================
+*/
+
+add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
+	$filetype = wp_check_filetype( $filename, $mimes );
+	return [
+		 'ext'             => $filetype['ext'],
+		 'type'            => $filetype['type'],
+		 'proper_filename' => $data['proper_filename']
+	];
+ 
+ }, 10, 4 );
+ 
+ function cc_mime_types( $mimes ){
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+ }
+ add_filter( 'upload_mimes', 'cc_mime_types' );
+ 
+ function fix_svg() {
+	echo '<style type="text/css">
+			.attachment-266x266, .thumbnail img {
+				  width: 100% !important;
+				  height: auto !important;
+			}
+			</style>';
+ }
+ add_action( 'admin_head', 'fix_svg' );
+
+ 
 
 /* 
 ======= NAV MENU ==================================
@@ -167,15 +199,20 @@ function custom_dropdown_class( $classes, $args, $depth ) {
 add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 1, 3 );
 
 
-
 /* 
-======= END NAV MENU ==================================
+======= CUSTOM LOGO ==================================
 */
+add_theme_support( 'custom-logo' );
 
-	// function special_nav_class ($classes, $item) {
-	// 	if (in_array('nav-link', $classes) ){
-	// 	  $classes[] .= ' active';
-	// 	}
-	// 	return $classes;
-	//  }
-	 
+function themename_custom_logo_setup() {
+	$defaults = array(
+		'height'               => 40,
+		'width'                => 180,
+		'flex-height'          => true,
+		'flex-width'           => true,
+		'header-text'          => ['site-title', 'site-description' ],
+		'unlink-homepage-logo' => true, 
+	);
+	add_theme_support( 'custom-logo', $defaults );
+}
+add_action( 'after_setup_theme', 'themename_custom_logo_setup' );

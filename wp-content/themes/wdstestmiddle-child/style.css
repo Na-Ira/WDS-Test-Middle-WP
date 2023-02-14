@@ -131,8 +131,7 @@ body {
   margin: 0;
   min-width: 20rem;
   line-height: var(--body-line-height);
-  /* background-color: var(--main-bg); */
-  background-color: #3b7a64;
+  background-color: var(--main-bg);
   font-size: 16px;
   height: 100%;
 }
@@ -202,6 +201,7 @@ LOADER =================
   font-family: Italiana;
   line-height: 1.5;
   transform: translate(-50%, -50%);
+  margin-bottom: 2rem;
 }
 .loading .text-load span {
   color: var(--hover);
@@ -347,7 +347,7 @@ LOADER =================
 04.HERO SECTION =================
 */
 .hero {
-  background: var(--bg-2) url(../img/decor.png) center center repeat;
+  background: var(--bg-2) url(./assets/img/decor.png) center center repeat;
   min-height: 37.5rem;
   padding-left: 0;
   padding-right: 0;
@@ -357,7 +357,7 @@ LOADER =================
 .hero::before {
   content: "";
   position: absolute;
-  background: url(../img/hero/Man_Img.png) top right no-repeat;
+  background: url(./assets/img/hero/Man_Img.png) top right no-repeat;
   width: 100%;
   height: calc(100% - 7.25rem);
   background-size: contain;
@@ -367,7 +367,7 @@ LOADER =================
 .hero::after {
   content: "";
   position: absolute;
-  background: url(../img/hero/gradient.png) center bottom no-repeat;
+  background: url(./assets/img/hero/gradient.png) center bottom no-repeat;
   background-size: contain;
   bottom: 0;
   left: 0;
@@ -624,7 +624,7 @@ LOADER =================
 .testimonials .splide-container .splide__slide:not(.is-active)::after {
   content: "";
   position: absolute;
-  background: url(../img/testimonials/gradient.png) center center no-repeat;
+  background: url(./assets/img/testimonials/gradient.png) center center no-repeat;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -662,7 +662,7 @@ LOADER =================
   .splide__slide
   .splide__video
   .splide__video__play {
-  background: url(../img/testimonials/play-btn.svg) center center no-repeat;
+  background: url(./assets/img/testimonials/play-btn.svg) center center no-repeat;
   width: 4.4375rem;
   height: 4.4375rem;
 }
@@ -681,7 +681,7 @@ LOADER =================
 .testimonials .splide-container .splide__slide .splide-slide-container::before {
   content: "";
   position: absolute;
-  background: url(../img/testimonials/waves.png) top right no-repeat;
+  background: url(./assets/img/testimonials/waves.png) top right no-repeat;
   width: 100%;
   height: 100%;
   right: 0;
@@ -796,7 +796,7 @@ LOADER =================
 .contact::before {
   content: "";
   position: absolute;
-  background: url(../img/decor.png) center center;
+  background: url(./assets/img/decor.png) center center;
   width: 100%;
   height: 100%;
   background-size: cover;

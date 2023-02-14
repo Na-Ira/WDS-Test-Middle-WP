@@ -11,11 +11,8 @@
  */
 
 ?>
-			</main><!-- #main -->
-		</div><!-- #primary -->
-	</div><!-- #content -->
+	</main><!-- #main -->
 
-	<?php get_template_part( 'template-parts/footer/footer-widgets' ); ?>
 
 	<footer id="colophon" class="site-footer">
 
@@ -38,6 +35,7 @@
 				</ul><!-- .footer-navigation-wrapper -->
 			</nav><!-- .footer-navigation -->
 		<?php endif; ?>
+
 		<div class="site-info">
 			<div class="site-name">
 				<?php if ( has_custom_logo() ) : ?>
@@ -52,22 +50,6 @@
 					<?php endif; ?>
 				<?php endif; ?>
 			</div><!-- .site-name -->
-
-			<?php
-			if ( function_exists( 'the_privacy_policy_link' ) ) {
-				the_privacy_policy_link( '<div class="privacy-policy">', '</div>' );
-			}
-			?>
-
-			<div class="powered-by">
-				<?php
-				printf(
-					/* translators: %s: WordPress. */
-					esc_html__( 'Proudly powered by %s.', 'twentytwentyone' ),
-					'<a href="' . esc_url( __( 'https://wordpress.org/', 'twentytwentyone' ) ) . '">WordPress</a>'
-				);
-				?>
-			</div><!-- .powered-by -->
 
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
