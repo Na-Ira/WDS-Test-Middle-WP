@@ -5,11 +5,10 @@
  * Functions file for child theme, enqueues parent and child stylesheets by default.
  *
  * @since   1.0.0
- * @package aa
  */
   
 /*
-======= Disable unnecessary parent theme styles =====================
+** ======= Disable unnecessary parent theme styles =====================
 */
 add_action( 'wp_enqueue_scripts', 'remove_parent_style', 100);
 function remove_parent_style() {
@@ -48,7 +47,7 @@ function remove_twenty_twenty_one_responsive_embeds_script() {
 }
 
 /* 
-======= Add styles and scripts js =============
+** ======= Add styles and scripts js =============
 */
 
 add_action('wp_enqueue_scripts', 'my_styles_and_scripts');
@@ -77,31 +76,13 @@ function my_styles_and_scripts() {
 		get_stylesheet_directory_uri() . '/assets/js/vendor/bootstrap.bundle.min.js',
 		array(),
 		time(),
-		true // true - in footer, false – in header
+		true 
 	);
 
     // Aos
 	wp_enqueue_script( 
 		'aos', 
 		get_stylesheet_directory_uri() . '/assets/js/vendor/aos.min.js',
-		array(),
-		time(),
-		true
-	);
-
-    // Splide
-	wp_enqueue_script( 
-		'splide', 
-		get_stylesheet_directory_uri() . '/assets/js/vendor/splide.min.js',
-		array(),
-		time(),
-		true
-	);
-
-    // Splide video
-	wp_enqueue_script( 
-		'splide-video-js', 
-		get_stylesheet_directory_uri() . '/assets/js/vendor/splide-extension-video.min.js',
 		array(),
 		time(),
 		true
@@ -118,7 +99,7 @@ function my_styles_and_scripts() {
 }
 
 /* 
-======= For SVG Upload ==================================
+** ======= For SVG Upload ==================================
 */
 
 add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
@@ -150,7 +131,7 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
  
 
 /* 
-======= NAV MENU ==================================
+** ======= NAV MENU ==================================
 */
 /**
  * Register Custom Navigation Walker
@@ -200,10 +181,8 @@ function custom_dropdown_class( $classes, $args, $depth ) {
 add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 10, 4 );
 
 
-
-
 /* 
-======= CUSTOM LOGO ==================================
+** ======= CUSTOM LOGO ==================================
 */
 add_theme_support( 'custom-logo' );
 
@@ -219,3 +198,75 @@ function themename_custom_logo_setup() {
 	add_theme_support( 'custom-logo', $defaults );
 }
 add_action( 'after_setup_theme', 'themename_custom_logo_setup' );
+
+/* 
+** ======= SLIDER ==================================
+*/
+/**
+ * Register Slider Plugin
+**/
+
+function testimonials_clients_slider() {
+	$labels = array(
+		'name'                  => _x( 'Testimonials', 'Post Type General Name', 'wdstestmiddle-child' ),
+		'singular_name'         => _x( 'Testimonials', 'Post Type General Name', 'wdstestmiddle-child' ),
+		'menu_name'             => _x( 'Testimonials', 'Admin Menu text', 'wdstestmiddle-child' ),
+		'name_admin_bar'        => _x( 'Testimonials Slider', 'Add New on Toolbar', 'wdstestmiddle-child' ),
+		'add_new'               => __( 'New Slide', 'wdstestmiddle-child' ),
+		'add_new_item'          => __( 'Add New Slide', 'wdstestmiddle-child' ),
+		'new_item'              => __( 'New Slider', 'wdstestmiddle-child' ),
+		'edit_item'             => __( 'Edit Slider', 'wdstestmiddle-child' ),
+		'view_item'             => __( 'View Slider', 'wdstestmiddle-child' ),
+		'all_items'             => __( 'All Sliders', 'wdstestmiddle-child' ),
+		'parent_item_colon'     => __( 'Parent Slider:', 'wdstestmiddle-child' ),
+		'not_found'             => __( 'No slider found.', 'wdstestmiddle-child' ),
+		'not_found_in_trash'    => __( 'No slider found in Trash.', 'wdstestmiddle-child' ),
+		'insert_into_item'      => _x( 'Insert into Slider', 'wdstestmiddle-child' ),
+		'uploaded_to_this_item' => _x( 'Uploaded to this Slider', 'wdstestmiddle-child' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'label'              => __( 'Testimonials', 'wdstestmiddle-child' ),
+		'description'        => __( 'Slider What My CLients Say', 'wdstestmiddle-child' ),
+		'taxonomies'         => array( 'slider_category' ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'menu_icon'          => 'dashicons-buddicons-buddypress-logo',
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'slider' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => true,
+		'menu_position'      => 20,
+		'supports'           => array( 'title', 'editor', 'thumbnail'),
+		'show_in_rest'       => true,
+	);
+
+	register_post_type( 'tst_slider', $args );
+
+	// Register Taxonomy
+	register_taxonomy( 
+		'slider_category', 
+		'tst_slider', 
+		array(
+		'label'        => __( 'Client name', 'wdstestmiddle-child' ),
+		'rewrite'      => array( 'slug' => 'tst_slider/slider_category' ),
+		'hierarchical' => true
+  ) );
+}
+
+add_action( 'init', 'testimonials_clients_slider' );
+
+// to enable transient cache for oembeds
+if( !defined('PIX_OEMBED_CACHE_KEY') ) {
+	define('PIX_OEMBED_CACHE_KEY', 'pix_oembed_');
+}
+
+function _wp_custom_oembed_cache_key($url, $args) {
+	$args_serialized = serialize($args);
+	return PIX_OEMBED_CACHE_KEY . md5("{$url}-{$args_serialized}");
+}
+

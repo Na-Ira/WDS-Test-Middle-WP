@@ -42,13 +42,11 @@
          <header class="header">
             <nav class="navbar fixed-top navbar-expand-lg" id="mainNav">
                <div class="container-fluid navbar-container">
-                  <a class="navbar-brand" href="<?php echo home_url( ); ?>">
-                     <?php 
+                  <a class="navbar-brand" href="<?php echo home_url( ); ?>"> <?php 
                      if ( function_exists( 'the_custom_logo' ) ) {
                         the_custom_logo();
                      }
-                     ?>
-                  </a>
+                     ?> </a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                      data-bs-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                      <span class="wrap-menunavigation">
@@ -85,3 +83,6 @@
                </div>
             </nav>
          </header>
+
+         <!-- ========= main ========= -->
+         <main class="main">

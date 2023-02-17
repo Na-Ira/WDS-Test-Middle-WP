@@ -590,31 +590,40 @@ LOADER =================
   transition: width 400ms ease;
   width: 0;
 }
-.testimonials
-  .splide-container
-  .my-slider-progress-container
-  .my-slider-progress-inner
-  .number {
-  position: absolute;
+.testimonials .splide-container {
+  position: relative;
+}
+.testimonials .splide-container .splide__pagination--number {
+  width: 100%;
+  max-width: 73.125rem;
+  transform: scale(1);
   font-size: 16px;
   font-weight: 600;
-  width: 1.25rem;
-  height: 1.25rem;
+  margin: auto;
   bottom: 0;
-  top: -0.75rem;
 }
-.testimonials
-  .splide-container
-  .my-slider-progress-container
-  .my-slider-progress-inner
-  .number:first-child {
+.testimonials .splide-container .splide__pagination__page {
+  background: transparent;
+  font-size: 16px;
+  font-weight: 600;
+  height: auto;
+  width: auto;
+}
+.testimonials .splide-container .splide__pagination__page.is-active {
+  background: transparent;
+  transform: scale(1);
+}
+.testimonials .splide-container .splide__pagination--number li {
+  position: absolute;
+}
+.testimonials .splide-container .splide__pagination--number li:not(:first-child):not(:last-child)  {
+ opacity: 0;
+ visibility: hidden;
+}
+.testimonials .splide-container .splide__pagination--number li:first-child {
   left: 0;
 }
-.testimonials
-  .splide-container
-  .my-slider-progress-container
-  .my-slider-progress-inner
-  .number:last-child {
+.testimonials .splide-container .splide__pagination--number li:last-child {
   right: 0;
 }
 .testimonials .splide-container .splide__slide {
@@ -624,7 +633,8 @@ LOADER =================
 .testimonials .splide-container .splide__slide:not(.is-active)::after {
   content: "";
   position: absolute;
-  background: url(./assets/img/testimonials/gradient.png) center center no-repeat;
+  background: url(./assets/img/testimonials/gradient.png) center center
+    no-repeat;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -662,7 +672,8 @@ LOADER =================
   .splide__slide
   .splide__video
   .splide__video__play {
-  background: url(./assets/img/testimonials/play-btn.svg) center center no-repeat;
+  background: url(./assets/img/testimonials/play-btn.svg) center center
+    no-repeat;
   width: 4.4375rem;
   height: 4.4375rem;
 }
@@ -786,7 +797,6 @@ LOADER =================
   font-weight: 300;
   margin-top: 0.3125rem;
 }
-
 /*
 07.CONTACT SECTION =================
 */
@@ -863,6 +873,7 @@ LOADER =================
 */
 .footer {
   padding: 6.25rem 2rem;
+  margin-top: auto;
 }
 .footer .logo {
   padding-bottom: 2rem;
@@ -1143,6 +1154,9 @@ MEDIA  =================
     padding-left: 2rem;
     padding-right: 2rem;
   }
+  .testimonials .splide-container .splide__pagination--number {
+    width: 95%; 
+  }
 }
 @media (max-width: 991px) {
   .navbar .navbar-container .navbar-nav {
@@ -1284,6 +1298,9 @@ MEDIA  =================
     .splide__slide__container::after {
     width: 25.0625rem;
   }
+  .testimonials .splide-container .splide__pagination--number {
+    width: 94%; 
+  }
 }
 @media (max-width: 818px) {
   .testimonials .splide-container .splide__slide .splide__video {
@@ -1388,6 +1405,9 @@ MEDIA  =================
     .splide-container-inner
     .splide__slide__container::after {
     width: 100%;
+  }
+  .testimonials .splide-container .splide__pagination--number {
+    width: 92%; 
   }
   .contact .contact-container {
     grid-template-columns: 1fr;

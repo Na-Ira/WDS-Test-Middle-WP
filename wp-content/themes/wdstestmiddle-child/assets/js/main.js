@@ -137,32 +137,6 @@ if (window.innerWidth < 992) {
 ====== Testimonials slider  =======================
 */
 
-const splide = new Splide(".splide", {
-  type: "loop",
-  gap: "2.5rem",
-  pagination: false,
-  perPage: 1,
-  perMove: 1,
-  trimSpace: "move",
-  focus: "center",
-  // height: "21.25rem",
-  cover: true,
-  video: {
-    loop: false,
-    mute: true,
-  },
-});
-
-const bar = splide.root.querySelector(".my-slider-progress-bar");
-
-// Updates the bar width whenever the carousel moves:
-splide.on("mounted move", function () {
-  let end = splide.Components.Controller.getEnd() + 1;
-  let rate = Math.min((splide.index + 1) / end, 1);
-  bar.style.width = String(100 * rate) + "%";
-});
-
-splide.mount(window.splide.Extensions);
 
 
 AOS.init();
