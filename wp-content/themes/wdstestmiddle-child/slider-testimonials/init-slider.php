@@ -1,7 +1,0 @@
-<?php 
-/**
- * Register Slider Plugin
-**/
-
-
-?>

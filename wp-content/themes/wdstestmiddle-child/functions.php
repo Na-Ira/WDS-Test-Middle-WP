@@ -138,7 +138,7 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
 */
 function register_navwalker(){
 	// Connects only to the parent theme
-	require_once  get_template_directory() . '/classes/class-wp-bootstrap-navwalker.php';
+	require_once get_template_directory() . '/classes/class-wp-bootstrap-navwalker.php';
 }
 add_action( 'after_setup_theme', 'register_navwalker' );
 
@@ -260,13 +260,92 @@ function testimonials_clients_slider() {
 
 add_action( 'init', 'testimonials_clients_slider' );
 
-// to enable transient cache for oembeds
-if( !defined('PIX_OEMBED_CACHE_KEY') ) {
-	define('PIX_OEMBED_CACHE_KEY', 'pix_oembed_');
+
+// ============ CONTACT FORM ===========================
+// Ajax call
+function ajax_form_scripts() {
+	$translation_array = array(
+        'ajax_url' => admin_url( 'admin-ajax.php' )
+    );
+    wp_localize_script( 'main', 'cpm_object', $translation_array );
 }
 
-function _wp_custom_oembed_cache_key($url, $args) {
-	$args_serialized = serialize($args);
-	return PIX_OEMBED_CACHE_KEY . md5("{$url}-{$args_serialized}");
+add_action( 'wp_enqueue_scripts', 'ajax_form_scripts' );
+
+
+// THE AJAX ADD ACTIONS
+add_action( 'wp_ajax_set_form', 'set_form' );//execute when wp logged in
+add_action( 'wp_ajax_nopriv_set_form', 'set_form'); //execute when logged out
+// Functions that handle form inputs and send an email
+function set_form(){
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+	$message = $_POST['message'];
+	$admin =get_option('admin_email');
+	// wp_mail($email,$name,$message);  main sent to admin and the user
+	if(wp_mail($email, $name, $message)  &&  wp_mail($admin, $name, $message) )
+       {
+           echo "mail sent";
+   } else {
+          echo "mail not sent";
+   }
+	die();
 }
 
+/**
+ * Register Form Plugin
+**/
+
+// function form_plugin() {
+// 	$labels = array(
+// 		'name'                  => _x( 'Contact Forms', 'Post Type General Name', 'wdstestmiddle-child' ),
+// 		'singular_name'         => _x( 'Contact Form', 'Post Type General Name', 'wdstestmiddle-child' ),
+// 		'menu_name'             => _x( 'Contact Form', 'Admin Menu text', 'wdstestmiddle-child' ),
+// 		'name_admin_bar'        => _x( 'Contact Form', 'Add New on Toolbar', 'wdstestmiddle-child' ),
+// 		'add_new'               => __( 'New Form', 'wdstestmiddle-child' ),
+// 		'add_new_item'          => __( 'Add New Form', 'wdstestmiddle-child' ),
+// 		'new_item'              => __( 'New Form', 'wdstestmiddle-child' ),
+// 		'edit_item'             => __( 'Edit Form', 'wdstestmiddle-child' ),
+// 		'view_item'             => __( 'View Form', 'wdstestmiddle-child' ),
+// 		'all_items'             => __( 'All Forms', 'wdstestmiddle-child' ),
+// 		'parent_item_colon'     => __( 'Parent Form:', 'wdstestmiddle-child' ),
+// 		'not_found'             => __( 'No Form found.', 'wdstestmiddle-child' ),
+// 		'not_found_in_trash'    => __( 'No Form found in Trash.', 'wdstestmiddle-child' ),
+// 		'insert_into_item'      => _x( 'Insert into Form', 'wdstestmiddle-child' ),
+// 		'uploaded_to_this_item' => _x( 'Uploaded to this Form', 'wdstestmiddle-child' ),
+// 	);
+
+// 	$args = array(
+// 		'labels'             => $labels,
+// 		'label'              => __( 'Contact Form', 'wdstestmiddle-child' ),
+// 		'description'        => __( 'Get in Touch Form', 'wdstestmiddle-child' ),
+// 		'taxonomies'         => array( 'form_category' ),
+// 		'public'             => true,
+// 		'publicly_queryable' => true,
+// 		'menu_icon'          => 'dashicons-email-alt',
+// 		'show_ui'            => true,
+// 		'show_in_menu'       => true,
+// 		'query_var'          => true,
+// 		'rewrite'            => array( 'slug' => 'form' ),
+// 		'capability_type'    => 'post',
+// 		'has_archive'        => true,
+// 		'hierarchical'       => true,
+// 		'menu_position'      => 20,
+// 		'supports'           => array( 'title', 'editor', 'thumbnail'),
+// 		'show_in_rest'       => true,
+// 	);
+
+// 	register_post_type( 'contact_form', $args );
+
+// 	// Register Taxonomy
+// 	register_taxonomy( 
+// 		'form_category', 
+// 		'contact_form', 
+// 		array(
+// 		'label'        => __( 'Form name', 'wdstestmiddle-child' ),
+// 		'rewrite'      => array( 'slug' => 'contact_form/form_category' ),
+// 		'hierarchical' => true
+//   ) );
+// }
+
+// add_action( 'init', 'form_plugin' );

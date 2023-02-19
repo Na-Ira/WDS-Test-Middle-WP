@@ -49,10 +49,10 @@ get_header(); ?>
          <h2 data-aos="fade-right" data-aos-duration="700">
             What My&nbsp;<span>Clients Say</span>
          </h2>
-      <!-- Slider  -->
-      <?php get_template_part ('slider-testimonials/testimonials-slider'); ?>
-      <!-- End Slider  -->
-   </div>
+         <!-- Slider  -->
+         <?php get_template_part ('slider-testimonials/testimonials-slider'); ?>
+         <!-- End Slider  -->
+      </div>
 </section>
 
 <!-- contact section -->
@@ -68,29 +68,7 @@ get_header(); ?>
          </div>
       </div>
       <div class="contact-form">
-         <form method="post">
-            <div class="contact-form-container">
-               <div class="mb-3" data-aos="fade-right" data-aos-offset="200" data-aos-duration="400">
-                  <input type="text" class="form-control" id="name" placeholder="Name" />
-               </div>
-               <div class="mb-3" data-aos="fade-right" data-aos-offset="200" data-aos-duration="500">
-                  <input type="email" class="form-control" id="email" placeholder="Email" />
-               </div>
-               <div class="mb-0" data-aos="fade-right" data-aos-offset="200" data-aos-duration="500">
-                  <textarea class="form-control" id="message" rows="5" placeholder="Write something..."></textarea>
-               </div>
-               <button class="btn btn-success" type="submit">
-                  <span class="submit-btn">
-                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                           d="M1.81818 4.85267L9.39603 11.5885C9.74047 11.8947 10.2595 11.8947 10.604 11.5885L18.1818 4.85267V15.4545C18.1818 15.9566 17.7748 16.3636 17.2727 16.3636H2.72727C2.22519 16.3636 1.81818 15.9566 1.81818 15.4545V4.85267ZM3.1865 3.63635H16.8134L9.99995 9.69276L3.1865 3.63635Z"
-                           fill="white" />
-                     </svg>
-                  </span>
-                  Submit Message
-               </button>
-            </div>
-         </form>
+          <?php echo do_shortcode('[contact_form]'); ?>
       </div>
    </div>
 </section>
