@@ -8,4 +8,5 @@ logs/
 .DR_Store
 *.code-workspace
 *.sql
+*.log
 

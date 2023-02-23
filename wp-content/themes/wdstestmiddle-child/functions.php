@@ -141,7 +141,6 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
  * ========= NAV MENU =========
  *
  */
-
 // Register Custom Navigation Walker
 function register_navwalker(){
 	require_once WP_CONTENT_DIR . '/themes/wdstestmiddle-child/classes/class-wp-bootstrap-navwalker.php';

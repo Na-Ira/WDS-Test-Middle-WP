@@ -20,13 +20,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'maleich_web-test' );
+define( 'DB_NAME', 'test' );
 
 /** Database username */
-define( 'DB_USER', 'maleich_web-test' );
+define( 'DB_USER', 'test' );
 
 /** Database password */
-define( 'DB_PASSWORD', '9#LllroXA3KY' );
+define( 'DB_PASSWORD', 'test' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
@@ -79,7 +79,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', true );
+define( 'WP_DEBUG', false );
 
 // Enable Debug logging to the /wp-content/debug.log file
 define( 'WP_DEBUG_LOG', true );
