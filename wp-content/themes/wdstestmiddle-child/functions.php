@@ -1,15 +1,16 @@
 <?php
 /**
- * Child theme functions
  *
- * Functions file for child theme, enqueues parent and child stylesheets by default.
- *
- * @since   1.0.0
+ * Functions file for child theme: wdstestmiddle-child
+ * 
  */
   
-/*
-** ======= Disable unnecessary parent theme styles =====================
-*/
+ /**
+  * 
+  * 
+  * ========= Disable unnecessary parent theme styles =========
+  * 
+  */
 add_action( 'wp_enqueue_scripts', 'remove_parent_style', 100);
 function remove_parent_style() {
     wp_dequeue_style( 'parent-style' );
@@ -46,15 +47,18 @@ function remove_twenty_twenty_one_responsive_embeds_script() {
     wp_deregister_script( 'twenty-twenty-one-responsive-embeds-script' );
 }
 
-/* 
-** ======= Add styles and scripts js =============
-*/
+/**
+ * 
+ * 
+ * ========= Add styles and scripts js =========
+ * 
+ */
 
 add_action('wp_enqueue_scripts', 'my_styles_and_scripts');
 function my_styles_and_scripts() {	
-    /*
-    Styles ---------------------
-    */
+    /** 
+	  * ++++++++++ Styles ++++++++++
+	 */
 	// vendor css
 	wp_register_style( 'vendor', get_stylesheet_directory_uri() . '/assets/css/vendor.css', array() );
 	wp_enqueue_style( 'vendor' );
@@ -67,9 +71,9 @@ function my_styles_and_scripts() {
 	wp_register_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array(), time() );
 	wp_enqueue_style( 'child-style' );
 
-    /*
-    Script ------------------------
-    */
+	/**
+	 * ++++++++++ Script ++++++++++
+	 */
     // Bootstrap
 	wp_enqueue_script( 
 		'bootstrap', 
@@ -79,7 +83,7 @@ function my_styles_and_scripts() {
 		true 
 	);
 
-    // Aos
+    // AOS
 	wp_enqueue_script( 
 		'aos', 
 		get_stylesheet_directory_uri() . '/assets/js/vendor/aos.min.js',
@@ -98,9 +102,12 @@ function my_styles_and_scripts() {
 	);
 }
 
-/* 
-** ======= For SVG Upload ==================================
-*/
+/**
+ * 
+ * 
+ * ========= For SVG Upload =========
+ * 
+ */
 
 add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
 	$filetype = wp_check_filetype( $filename, $mimes );
@@ -127,18 +134,17 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
 			</style>';
  }
  add_action( 'admin_head', 'fix_svg' );
-
  
-
-/* 
-** ======= NAV MENU ==================================
-*/
 /**
- * Register Custom Navigation Walker
-*/
+ * 
+ * 
+ * ========= NAV MENU =========
+ *
+ */
+
+// Register Custom Navigation Walker
 function register_navwalker(){
-	// Connects only to the parent theme
-	require_once get_template_directory() . '/classes/class-wp-bootstrap-navwalker.php';
+	require_once WP_CONTENT_DIR . '/themes/wdstestmiddle-child/classes/class-wp-bootstrap-navwalker.php';
 }
 add_action( 'after_setup_theme', 'register_navwalker' );
 
@@ -162,8 +168,6 @@ function prefix_bs5_dropdown_data_attribute( $atts, $item, $args ) {
 }
 add_filter( 'nav_menu_link_attributes', 'prefix_bs5_dropdown_data_attribute', 20, 3 );
 
-
-
 // Adds additional classes to dropdown-menu
 function custom_dropdown_class( $classes, $args, $depth ) {
 	$animate_classes = 'animate slide-in';
@@ -180,10 +184,12 @@ function custom_dropdown_class( $classes, $args, $depth ) {
 }
 add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 10, 4 );
 
-
-/* 
-** ======= CUSTOM LOGO ==================================
-*/
+/**
+ * 
+ * 
+ * ========= CUSTOM LOGO =========
+ * 
+ */
 add_theme_support( 'custom-logo' );
 
 function themename_custom_logo_setup() {
@@ -199,13 +205,13 @@ function themename_custom_logo_setup() {
 }
 add_action( 'after_setup_theme', 'themename_custom_logo_setup' );
 
-/* 
-** ======= SLIDER ==================================
-*/
 /**
- * Register Slider Plugin
-**/
-
+ * 
+ * 
+ * ========= Plugin TESTIMONIALS SLIDER  =========
+ *
+ */
+// Register Plugin
 function testimonials_clients_slider() {
 	$labels = array(
 		'name'                  => _x( 'Testimonials', 'Post Type General Name', 'wdstestmiddle-child' ),
@@ -260,36 +266,11 @@ function testimonials_clients_slider() {
 
 add_action( 'init', 'testimonials_clients_slider' );
 
-
-// ============ CONTACT FORM ===========================
-// Ajax call
-function ajax_form_scripts() {
-	$translation_array = array(
-        'ajax_url' => admin_url( 'admin-ajax.php' )
-    );
-    wp_localize_script( 'main', 'cpm_object', $translation_array );
-}
-
-add_action( 'wp_enqueue_scripts', 'ajax_form_scripts' );
-
-
-// THE AJAX ADD ACTIONS
-add_action( 'wp_ajax_set_form', 'set_form' );//execute when wp logged in
-add_action( 'wp_ajax_nopriv_set_form', 'set_form'); //execute when logged out
-// Functions that handle form inputs and send an email
-function set_form(){
-	$name = $_POST['name'];
-	$email = $_POST['email'];
-	$message = $_POST['message'];
-	$admin =get_option('admin_email');
-	// wp_mail($email,$name,$message);  main sent to admin and the user
-	if(wp_mail($email, $name, $message)  &&  wp_mail($admin, $name, $message) )
-       {
-           echo "mail sent";
-   } else {
-          echo "mail not sent";
-   }
-	die();
-}
-
-
+/**
+ * 
+ * 
+ * ========= CUSTOM CONTACT FORM Plugin =========
+ * 
+ */
+require_once WP_CONTENT_DIR . '/plugins/custom-contact-form/functions.php';
+require_once WP_CONTENT_DIR . '/plugins/custom-contact-form/process/index.php';

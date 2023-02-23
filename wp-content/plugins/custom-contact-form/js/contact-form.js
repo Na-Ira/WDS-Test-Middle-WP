@@ -1,47 +1,102 @@
-   var $form = $("#contact_form");
-   var $resp = $("#response_sub");
+jQuery(function ($) {
+  var $form = $("#contact_form");
+  var $submit = $("#form_contact_submit");
 
-
-  function submit_contact_form() {
-    var fd = new FormData();
-    fd.append("formContactSubmit", "1");
-    fd.append("name", $("#your_name").val());
-    fd.append("email", $("#your_email").val());
-    fd.append("comments", $("#your_message").val());
-    js_submit(fd, submit_contact_form_callback);
+  function resetForm() {
+    $form[0].reset();
   }
 
-  function submit_contact_form_callback(data) {
-    var jdata = JSON.parse(data);
+  function submitForm() {
+    
+    $($submit).on("click", function () {
+      var formData = $($form).serializeArray();
+      /**
+       * Sending values of the fields
+       */
+      var options = {
+        url: contact_form_object.url,
+        data: {
+          action: "contact_form_action",
+          nonce: contact_form_object.nonce,
+          data: formData,
+        },
+        type: "POST",
+        dataType: "json",
+        beforeSubmit: function (xhr) {
+          /**
+           * Change the inscription on the button when sending
+           */
+          $submit.text("Sending...");
+        },
+        success: function (request, xhr, status, error) {
+          var newRequestData = request.data;
 
-    if (jdata.success == 1) {
-      var mess = jdata.message;
+          if (request.success === true) {
+            /**
+             * If all fields are filled in, send the data
+             * and return the button caption to the default state
+             */
+            $form
+              .after(
+                '<div class="message-success">' + newRequestData + "</div>"
+              )
+              .slideDown();
+            $submit.text("Submit Message");
+          } else {
+            /**
+             * If the fields are empty, display messages
+             * and change the inscription on the button
+             */
+            $.each(newRequestData, function (key, val) {
+              $(".your_" + key).addClass("error");
+              $(".your_" + key).before(
+                '<span class="error-' + key + '">' + val + "</span>"
+              );
+              /**
+               * Reset field values
+               */
+              $(".your_name").blur(function () {
+                $(this).removeClass("error");
+                $(".error-name").slideUp(200, function () {
+                  $(this).remove();
+                });
+              });
+              $(".your_email").blur(function () {
+                $(this).removeClass("error");
+                $(".error-email").slideUp(200, function () {
+                  $(this).remove();
+                });
+              });
+              $(".your_comment").blur(function () {
+                $(this).removeClass("error");
+                $(".error-comment").slideUp(200, function () {
+                  $(this).remove();
+                });
+              });
+            });
+            $submit.text("Something went wrong......");
+          }
 
-      $res.fadeIn().html(mess);
-    } 
-   //  else if (jdata.success == 0) {
-   //    $resp.html("").fadeOut();
-   //  }
-  }
+          setTimeout(() => {
+            $(".message-success").fadeOut();
+          }, 3000);
 
-  function js_submit(fd, callback) {
-    var submitUrl =
-      "https://nastmobile.com/web-test/wp-content/plugins/custom-contact-form/process/";
+          /**
+           * On successful sending, reset the field values
+           */
+          resetForm();
 
-
-    $.ajax({
-      url: submitUrl,
-      type: "post",
-      data: fd,
-      contentType: false,
-      processData: false,
-      success: function (response) {
-        console.log(response);
-        callback(response);
-        $form.find("input, textarea").val("");
-        setTimeout(() => {
-         $resp.fadeOut();
-       }, 3000);
-      },
+          // console.log(request);
+        },
+        error: function (request, status, error) {
+          $submit.text("Something went wrong......");
+        },
+      };
+      /**
+       * Sending the form
+       */
+      $form.ajaxForm(options);
     });
   }
+  submitForm();
+});

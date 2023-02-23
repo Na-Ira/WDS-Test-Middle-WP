@@ -1,41 +1,103 @@
 <?php 
 
-$path = preg_replace('/wp-content.*$/','',__DIR__);
-
-require_once($path."wp-load.php");
-
-if(isset($_POST['formContactSubmit']) && $_POST['formContactSubmit'] == "1") {
-
-   // get the information from post submit
-   $name = sanitize_text_field($_POST['name']);
-   $email = sanitize_email($_POST['email']);
-   $comments = sanitize_textarea_field($_POST['comments']);
-
-   // write email information for sending to admin
-   $to = 'narinaua@gmail.com';
-   $subject = 'Form Get in Touch';
-   $message = '';
-
-   $message .= "Name: $name \n\n";
-   $message .= "Email: $email \n\n";
-
-   $comments = wpautop($comments);
-   $comments = str_replace("<p>", "", $comments);
-   $comments = str_replace("</p>", "", $comments);
-
-   $message .= "Comments: $comments\n";
-   $message .= 'Thank you!';
-
-   wp_mail($to, $subject, $message);
+require_once WP_CONTENT_DIR . '/plugins/custom-contact-form/functions.php';
 
 
+add_action( 'wp_ajax_contact_form_action', 'contact_form_action_callback' );
+add_action( 'wp_ajax_nopriv_contact_form_action', 'contact_form_action_callback' );
 
-   // return something for the user
-   $return = [];
-   $return['success'] = 1;
-   $return['message'] = 'Thanks, your email was sent successfully';
+function contact_form_action_callback() {
 
-   echo json_encode($return);
+	/**
+	 * Error array
+	 */
+	$errors = [];
+
+	/**
+	 * If it does not pass the nonce check, we block sending
+	 */
+	if ( !wp_verify_nonce( $_POST['nonce'], 'contact-form-nonce' ) ) {
+		wp_die( 'The data was sent from an invalid address' );
+	}
+
+	/**
+	 * Check the name field, if it's empty, then write a message in the error array
+	 */
+	if ( empty( $_POST['name'] ) || !isset( $_POST['name'] ) ) {
+		$errors['name'] = 'Please enter your name.';
+	} else {
+		$name = sanitize_text_field( $_POST['name'] );
+	}
+
+	/**
+	 * Check email fields, if empty, then write a message in the error array
+	 */
+   if ( empty( $_POST['email'] ) || !isset( $_POST['email'] ) ) {
+		$errors['email'] = 'Please enter your email address.';
+	} elseif ( !preg_match( "/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$/i", $_POST['email'] ) ) {
+		$errors['email'] = 'The email address is incorrect.';
+	} else {
+		$email = sanitize_email( $_POST['email'] );
+	}
+
+	/**
+	 * Check the message field, if it's empty, then write the default message
+	 */
+   if ( empty( $_POST['comment'] ) || !isset( $_POST['comment'] ) ) {
+		$errors['comment'] = 'Please enter your message.';
+	} else {
+		$comment = sanitize_textarea_field( $_POST['comment'] );
+	}
+
+
+	/**
+	 * Check the error array, if it is not empty, then send the message. 
+	 * If all is well, send email
+	 */
+	if ( $errors ) {
+
+		wp_send_json_error( $errors );
+
+	} else {
+
+		/**
+		 * Find out from which site the email came
+		 */
+		$home_url = wp_parse_url( home_url() );
+		$subject = 'Email from John Doe';
+
+		/**
+		 * Email recipients
+		 */
+		$email_to = 'narinaua@gmail.com';
+		$email_from = get_option( 'admin_email' );
+
+		/**
+		 * Putting together email
+		 */
+		$body  = "Name: $name \n\n";
+		$body .= "Email: $email \n\n";
+		$body .= "Message: $comment \n\n";
+      $body .= "Thank you!";
+
+		$headers = 'From: ' . $home_url['host'] . ' <' . $email_from . '>' . "\r\n" . 'Reply-To: ' . $email_from;
+
+		/**
+		 * Sending
+		 */
+		wp_mail( $email_to, $subject, $body, $headers );
+
+		/**
+		 * Sending a message about successful sending
+		 */
+		$message_success = 'Thanks, your email was sent successfully';
+		wp_send_json_success( $message_success );
+	}
+
+	/**
+	 * Killing the ajax process
+	 */
+	wp_die();
 
 }
 
