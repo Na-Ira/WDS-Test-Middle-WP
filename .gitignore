@@ -1,7 +1,6 @@
 #workspace
 *.code-workspace
 logs/
-wp-config.php
 
 #configs
 *.config
@@ -10,4 +9,5 @@ wp-config.php
 *.code-workspace
 *.sql
 *.log
+# wp-config.php
 
