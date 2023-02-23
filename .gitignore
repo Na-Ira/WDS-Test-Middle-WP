@@ -9,5 +9,5 @@ logs/
 *.code-workspace
 *.sql
 *.log
-# wp-config.php
+wp-config.php
 
