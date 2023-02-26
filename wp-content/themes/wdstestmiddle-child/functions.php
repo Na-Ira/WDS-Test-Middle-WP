@@ -1,8 +1,6 @@
 <?php
 /**
- *
  * Functions file for child theme: wdstestmiddle-child
- * 
  */
   
  /**
@@ -108,7 +106,6 @@ function my_styles_and_scripts() {
  * ========= For SVG Upload =========
  * 
  */
-
 add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
 	$filetype = wp_check_filetype( $filename, $mimes );
 	return [
@@ -119,12 +116,13 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
  
  }, 10, 4 );
  
+ add_filter( 'upload_mimes', 'cc_mime_types' );
  function cc_mime_types( $mimes ){
 	$mimes['svg'] = 'image/svg+xml';
 	return $mimes;
  }
- add_filter( 'upload_mimes', 'cc_mime_types' );
  
+ add_action( 'admin_head', 'fix_svg' );
  function fix_svg() {
 	echo '<style type="text/css">
 			.attachment-266x266, .thumbnail img {
@@ -133,8 +131,6 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
 			}
 			</style>';
  }
- add_action( 'admin_head', 'fix_svg' );
- 
 /**
  * 
  * 
@@ -154,6 +150,7 @@ register_nav_menus( array(
 ) );
 
 // Adds a data attribute for dropdown toggles
+add_filter( 'nav_menu_link_attributes', 'prefix_bs5_dropdown_data_attribute', 20, 3 );
 function prefix_bs5_dropdown_data_attribute( $atts, $item, $args ) {
     if ( is_a( $args->walker, 'WP_Bootstrap_Navwalker' ) ) {
         if ( array_key_exists( 'data-toggle', $atts ) ) {
@@ -165,9 +162,10 @@ function prefix_bs5_dropdown_data_attribute( $atts, $item, $args ) {
     }
     return $atts;
 }
-add_filter( 'nav_menu_link_attributes', 'prefix_bs5_dropdown_data_attribute', 20, 3 );
+
 
 // Adds additional classes to dropdown-menu
+add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 10, 4 );
 function custom_dropdown_class( $classes, $args, $depth ) {
 	$animate_classes = 'animate slide-in';
 	$add_sub_dropdown = 'submenu-dropdown';
@@ -181,7 +179,6 @@ function custom_dropdown_class( $classes, $args, $depth ) {
 
 	return $classes;
 }
-add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 10, 4 );
 
 /**
  * 
@@ -190,7 +187,7 @@ add_filter( 'nav_menu_submenu_css_class', 'custom_dropdown_class', 10, 4 );
  * 
  */
 add_theme_support( 'custom-logo' );
-
+add_action( 'after_setup_theme', 'themename_custom_logo_setup' );
 function themename_custom_logo_setup() {
 	$defaults = array(
 		'height'               => 40,
@@ -202,7 +199,6 @@ function themename_custom_logo_setup() {
 	);
 	add_theme_support( 'custom-logo', $defaults );
 }
-add_action( 'after_setup_theme', 'themename_custom_logo_setup' );
 
 /**
  * 
@@ -211,6 +207,7 @@ add_action( 'after_setup_theme', 'themename_custom_logo_setup' );
  *
  */
 // Register Plugin
+add_action( 'init', 'testimonials_clients_slider' );
 function testimonials_clients_slider() {
 	$labels = array(
 		'name'                  => _x( 'Testimonials', 'Post Type General Name', 'wdstestmiddle-child' ),
@@ -263,13 +260,4 @@ function testimonials_clients_slider() {
   ) );
 }
 
-add_action( 'init', 'testimonials_clients_slider' );
 
-/**
- * 
- * 
- * ========= CUSTOM CONTACT FORM Plugin =========
- * 
- */
-require_once WP_CONTENT_DIR . '/plugins/custom-contact-form/functions.php';
-require_once WP_CONTENT_DIR . '/plugins/custom-contact-form/process/index.php';

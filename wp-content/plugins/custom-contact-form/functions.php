@@ -5,7 +5,6 @@
  *
  */
 
- require_once WP_CONTENT_DIR . '/plugins/custom-contact-form/process/index.php';
 
  /**
   * Ajax call

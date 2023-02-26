@@ -1,8 +1,5 @@
 <?php 
 
-require_once WP_CONTENT_DIR . '/plugins/custom-contact-form/functions.php';
-
-
 add_action( 'wp_ajax_contact_form_action', 'contact_form_action_callback' );
 add_action( 'wp_ajax_nopriv_contact_form_action', 'contact_form_action_callback' );
 

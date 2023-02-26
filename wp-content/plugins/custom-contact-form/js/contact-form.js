@@ -7,7 +7,6 @@ jQuery(function ($) {
   }
 
   function submitForm() {
-    
     $($submit).on("click", function () {
       var formData = $($form).serializeArray();
       /**

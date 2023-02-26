@@ -1,4 +1,4 @@
-### Fullstack/Web developer (middle)
+### Fullstack/Web developer
 
 #### Общие Требования
 

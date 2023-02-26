@@ -1,13 +1,33 @@
 <?php 
 /**
- * Custom Contact Form
- *
  * Plugin Name: Custom Contact Form
- * Description: This plugin for "Get in Touch" form 
+ * Plugin URI: https://github.com/Na-Ira/WDS-Test-Middle-WP/tree/main/wp-content/plugins/custom-contact-form
+ * Author: Iryna Nahorna
+ * Author URI: https://folio-ira.nastmobile.com/
+ * Text Domain: custom-contact-form
+ * Description: This plugin for "Get in Touch" form
+ * Version: 1.0
  **/
 
+ /**
+  * Initializing plugin code (must have in main file)
+  */
+add_action('plugins_loaded', 'custom_contact_form_plugin');
 
+function custom_contact_form_plugin() {
+    require_once plugin_dir_path( __FILE__ ) . 'functions.php';
+    require_once plugin_dir_path( __FILE__ ) . 'process/index.php';
+}
+
+/**
+ * Shiotcode plugin
+ */
  add_shortcode("contact_form", "custom_contact_form_field");
+
+ /**
+ * Activation hook (must have in main file) 
+ */
+register_activation_hook( __FILE__, 'custom_contact_form_field' );
 
 function custom_contact_form_field() {
 

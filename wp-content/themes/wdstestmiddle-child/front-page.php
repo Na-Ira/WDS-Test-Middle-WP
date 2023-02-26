@@ -67,9 +67,11 @@ get_header(); ?>
             <p class="mb-0">237 Haylee Islands Suite 960</p>
          </div>
       </div>
-      <form class="contact-form" id="contact_form" method="post">
-         <?php echo do_shortcode('[contact_form]'); ?>
-      </form>
+      <div class="contact-form-wrapper position-relative">
+         <form class="contact-form" id="contact_form" method="post">
+            <?php echo do_shortcode('[contact_form]'); ?>
+         </form>
+      </div>
    </div>
 </section>
 
