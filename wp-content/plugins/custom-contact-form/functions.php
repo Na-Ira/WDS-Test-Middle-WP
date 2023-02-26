@@ -9,7 +9,7 @@
  /**
   * Ajax call
   */
- add_action( 'wp_enqueue_scripts', 'ajax_form_scripts' );
+add_action( 'wp_enqueue_scripts', 'ajax_form_scripts' );
 function ajax_form_scripts() {
 
 	/**

@@ -107,7 +107,7 @@ function my_styles_and_scripts() {
  * 
  */
 add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
-	$filetype = wp_check_filetype( $filename, $mimes );
+$filetype = wp_check_filetype( $filename, $mimes );
 	return [
 		 'ext'             => $filetype['ext'],
 		 'type'            => $filetype['type'],
@@ -259,5 +259,3 @@ function testimonials_clients_slider() {
 		'hierarchical' => true
   ) );
 }
-
-
