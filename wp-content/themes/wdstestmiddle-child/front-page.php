@@ -43,17 +43,8 @@ get_header(); ?>
 </section>
 
 <!-- testimonials section  -->
-<section class="testimonials pt-0 px-0" id="testimonials">
-   <div class="testimonials-container splide" aria-label="splide-slider">
-      <div class="testimonials-header d-flex w-1170 justify-content-between m-auto">
-         <h2 data-aos="fade-right" data-aos-duration="700">
-            What My&nbsp;<span>Clients Say</span>
-         </h2>
-         <!-- Slider  -->
-         <?php get_template_part ('slider-testimonials/testimonials-slider'); ?>
-         <!-- End Slider  -->
-      </div>
-</section>
+<?php echo do_shortcode('[testimonials-slider]'); ?>
+<!-- end testimonials section  -->
 
 <!-- contact section -->
 <section class="contact" id="contact">

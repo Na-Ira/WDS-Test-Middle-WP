@@ -9,13 +9,23 @@
  /**
   * Ajax call
   */
-add_action( 'wp_enqueue_scripts', 'ajax_form_scripts' );
+add_action( 'wp_enqueue_scripts', 'ajax_form_scripts', 20 );
 function ajax_form_scripts() {
 
 	/**
 	 * Process form fields
 	 */
 	wp_enqueue_script( 'jquery-form' );
+
+	/**
+	 * Styles
+	 */
+	wp_register_style( 'contact-form',
+		plugins_url( 'css/contact-form.css', __FILE__ ),
+		array(),
+		time()
+		);
+	wp_enqueue_style( 'contact-form' );
 
 	/**
 	 * Ajax script file
