@@ -27,7 +27,7 @@
       <?php
 							wp_nav_menu(
 								array(
-									'theme_location' => 'secondary',
+									'theme_location' => 'page_menu_footer',
 									'items_wrap'     => '%3$s',
 									'depth'          => 1,
 									'container'      => false,

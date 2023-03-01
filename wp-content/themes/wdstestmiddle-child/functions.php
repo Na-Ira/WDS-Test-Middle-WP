@@ -46,6 +46,19 @@ function remove_twenty_twenty_one_responsive_embeds_script() {
 }
 
 /**
+ * disabling <p> and <br> in the records
+ */
+remove_filter( 'the_content', 'wpautop' );
+/**
+ * disabling <p> and <br> in the announce
+ */
+remove_filter( 'the_excerpt', 'wpautop' );
+/**
+ * disabling special characters in records
+ */
+remove_filter( 'the_content', 'wptexturize' );
+
+/**
  * 
  * 
  * ========= Add styles and scripts js =========
@@ -157,6 +170,9 @@ add_action( 'after_setup_theme', 'register_navwalker' );
 register_nav_menus( array(
 	'primary' => __( 'Header Menu', 'wdstestmiddle-child' ),
 	'secondary' => __( 'Footer Menu', 'wdstestmiddle-child' ),
+	'page_menu_header' => __( 'Page Menu Header', 'wdstestmiddle-child' ),
+	'page_menu_footer' => __( 'Page Menu Footer', 'wdstestmiddle-child' ),
+
 ) );
 
 // Adds a data attribute for dropdown toggles

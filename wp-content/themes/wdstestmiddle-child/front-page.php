@@ -59,9 +59,7 @@ get_header(); ?>
          </div>
       </div>
       <div class="contact-form-wrapper position-relative">
-         <form class="contact-form" id="contact_form" method="post">
             <?php echo do_shortcode('[contact_form]'); ?>
-         </form>
       </div>
    </div>
 </section>

@@ -105,7 +105,7 @@ function testimonials_clients_slider() {
 		'has_archive'        => true,
 		'hierarchical'       => true,
 		'menu_position'      => 20,
-		'supports'           => array( 'title', 'editor', 'thumbnail'),
+		'supports'           => array( 'title', 'thumbnail'),
 		'show_in_rest'       => true,
 	);
 

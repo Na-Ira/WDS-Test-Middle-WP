@@ -2,12 +2,14 @@
 *.code-workspace
 logs/
 
-#configs
+#other
 *.config
 .vscode
 .DR_Store
 *.code-workspace
 *.sql
+*.html
 *.log
 wp-config.php
+
 

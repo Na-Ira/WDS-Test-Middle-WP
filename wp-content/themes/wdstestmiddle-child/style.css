@@ -47,9 +47,17 @@ HELPERS =================
   max-width: 73.125rem;
 }
 
+.w-text-news {
+  max-width: 43.75rem;
+}
+
 /*
 01.BASE CSS =================
 */
+pre {
+  display: inline-block;
+  background-color: var(--bg-4);
+}
 :focus-visible {
   outline: none;
 }
@@ -90,6 +98,7 @@ h2,
 h3,
 h4,
 h4,
+h5,
 h6 {
   font-family: Italiana;
   line-height: normal;
@@ -106,11 +115,28 @@ h2 {
   font-size: 4.375rem;
   letter-spacing: 0.175rem;
 }
+h3, 
+h4, 
+h5, 
+h6 {
+  letter-spacing: 0.15rem;
+  margin-bottom: 1.25rem;
+}
 
 h3 {
   font-size: 3.75rem;
-  letter-spacing: 0.15rem;
-  margin-bottom: 1.25rem;
+}
+
+h4 {
+  font-size: 2.5rem;
+}
+
+h5 {
+  font-size: 1.875rem;
+}
+
+h6 {
+  font-size: 1.5rem;
 }
 
 p {
@@ -138,7 +164,9 @@ body {
   font-size: 16px;
   height: 100%;
 }
-
+img {
+  max-width: 100%;
+}
 .wrapper {
   min-height: 100vh;
   display: -ms-flexbox;
@@ -493,6 +521,49 @@ Contact-form ----------
   font-size: 0.875rem;
   font-weight: 300;
 }
+/*
+09.======PAGE =================
+*/
+.page header {
+background: var(--bg-2) url(./assets/img/decor.png) center center repeat;
+}
+.rose-color {
+  color: #d63384;
+}
+.green-color {
+  color: #008085;
+}
+.blue-color {
+  color: #2f6f9f;
+}
+.page-container {
+  line-height: 1.5;
+}
+pre code {
+  font-size: inherit;
+  color: inherit;
+  word-break: normal;
+}
+.highlight {
+  padding: 1rem 1.5rem;
+  background-color: var(--bg-4);
+}
+.highlight pre {
+  padding: 0;
+  margin-top: 0.65rem;
+  margin-bottom: 0;
+  white-space: pre;
+  background-color: transparent;
+  border: 0;
+}
+.highlight p {
+  font-size: 1em;
+}
+.highlight pre code {
+  font-size: inherit;
+  color: #212529;
+  word-wrap: normal;
+}
 
 /*
  keyframes ===============
@@ -527,6 +598,8 @@ Contact-form ----------
 }
 /*
 =========== MEDIA  =================
+====================================
+====================================
 */
 @media (min-width: 320px) {
   .navbar.bg-mob {

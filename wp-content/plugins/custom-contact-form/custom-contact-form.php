@@ -34,6 +34,8 @@ function custom_contact_form_field() {
    // Create a string variable to hold content
    $content = '';
 
+   $content .= '<form class="contact-form" id="contact_form" method="#">';
+
    $content .= '<div class="contact-form-container">';
 
    $content .= '<div class="mb-3" data-aos="fade-right" data-aos-offset="200" data-aos-duration="400">';
@@ -56,6 +58,8 @@ function custom_contact_form_field() {
    $content .= '</button>';
 
    $content .= '</div>';
+
+   $content .= '</form>';
 
 
    return $content;
