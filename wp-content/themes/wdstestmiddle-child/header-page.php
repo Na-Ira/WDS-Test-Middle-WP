@@ -40,7 +40,7 @@
          </div>
          <!-- ========= header =========== -->
          <header class="header">
-            <nav class="navbar fixed-top navbar-expand-lg" id="mainNav">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-top" id="pageMainNav">
                <div class="container-fluid navbar-container">
                   <a class="navbar-brand" href="<?php echo home_url( ); ?>"> <?php 
                      if ( function_exists( 'the_custom_logo' ) ) {

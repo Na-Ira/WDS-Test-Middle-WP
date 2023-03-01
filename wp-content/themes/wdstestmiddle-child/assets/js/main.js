@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
 window.addEventListener("DOMContentLoaded", () => {
   // Navbar shrink function
   var navbarShrink = function () {
-    const navbarCollapsible = document.body.querySelector("#mainNav");
+    const navbarCollapsible = document.body.querySelector(".navbar-top");
     if (!navbarCollapsible) {
       return;
     }
@@ -60,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Add bg-mob class to navbar
   const navButton = document.querySelector(".navbar-toggler");
-  const header = document.querySelector("#mainNav");
+  const header = document.querySelector(".navbar-top");
 
   navButton.addEventListener("click", () => {
     header.classList.toggle("bg-mob");

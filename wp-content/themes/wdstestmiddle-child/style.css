@@ -527,6 +527,9 @@ Contact-form ----------
 .page header {
 background: var(--bg-2) url(./assets/img/decor.png) center center repeat;
 }
+.grey-color {
+  color: #727272;
+}
 .rose-color {
   color: #d63384;
 }
