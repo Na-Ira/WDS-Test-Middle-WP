@@ -50,10 +50,10 @@ function slider_testimonials_script() {
       true 
       );
 
-   // slider js
+   // init slider js
    wp_enqueue_script(
       'slider', 
-      plugins_url('js/slider.js', __FILE__),
+      plugins_url('js/init.js', __FILE__),
       array(),
       time(),
       true 
