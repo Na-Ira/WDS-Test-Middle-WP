@@ -15,9 +15,9 @@ get_header('page');
          <?php the_title( '<h3 class="page-title py-5 px-5 mt-5">', '</h3>' ); ?>
       </header>
 
-      <div class="page-container pt-5">
+      <div class="page-container container pt-5">
 
-         <div class="w-text-news py-5 m-auto mb-5">
+         <div class="py-5 m-auto mb-5">
             <?php the_content(); ?>
          </div>
 

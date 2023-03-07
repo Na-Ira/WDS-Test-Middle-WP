@@ -19,16 +19,19 @@
   }
  
   /**
-  * Shortcode plugin
+  *  plugin's Shortcode
   */
  add_shortcode("portfolio-gallery", "portfolio_gallery_activation");
- 
+
  /**
   * Activation plugin
   */
  register_activation_hook( __FILE__, 'portfolio_gallery_activation' );
  
  function portfolio_gallery_activation() {
+
+   // Start buffer
+   ob_start();
 
    $args_array = array(
       'posts_per_page' => -1,
@@ -38,13 +41,12 @@
       'order'          => 'DESC'
    );
     $get_folio_gallery = new WP_Query( $args_array );
- ?>
-<?php
+
    if( $get_folio_gallery->have_posts() ) :
       while ( $get_folio_gallery->have_posts() ) : $get_folio_gallery->the_post();
    ?>
 
-<section id="portfolio-section" class="sect py-0" data-section-name="portfolio-section">
+<section id="portfolio-section" class="sect py-0 px-0" data-section-name="portfolio-section">
    <div class="container wrap-container text-center who-i">
       <div class="row justify-content-center pb-5">
          <div class="col-lg-8">
@@ -104,5 +106,9 @@
 endif; ?>
 
 <?php
+
+// Return & clean buffer contents
+return ob_get_clean();
+
 }
  ?>
