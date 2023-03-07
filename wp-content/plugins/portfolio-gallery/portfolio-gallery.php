@@ -32,25 +32,24 @@
 
    $args_array = array(
       'posts_per_page' => -1,
-      'post_type'      => 'folio_gallery', // post type slug
+      'post_type'      => 'portfolio-gallery', // post type slug
       'post_status'    => 'publish',
-      'orderby'        => 'menu_order',
-      'order'          => 'ASC'
+      'orderby'        => 'date',
+      'order'          => 'DESC'
    );
     $get_folio_gallery = new WP_Query( $args_array );
-   //  $get_folio_gallery = get_posts( $args_array );
-
  ?>
+<?php
+   if( $get_folio_gallery->have_posts() ) :
+      while ( $get_folio_gallery->have_posts() ) : $get_folio_gallery->the_post();
+   ?>
 
 <section id="portfolio-section" class="sect py-0" data-section-name="portfolio-section">
    <div class="container wrap-container text-center who-i">
-      <span class="big-text">PORTFOLIO</span>
       <div class="row justify-content-center pb-5">
          <div class="col-lg-8">
             <div class="who-i text-center subtitle">
-               <h3 data-aos="fade-up" data-aos-delay="200" data-aos-offset="0">
-                  My <span class="boldi ml-2">Work</span>
-               </h3>
+               <?php the_title( '<h3 class="page-title">', '</h3>' ); ?>
                <p data-aos="fade-up" data-aos-delay="300" data-aos-offset="0">
                   Some of my profesional work
                </p>
@@ -62,17 +61,11 @@
          <div class="col container-folio px-0">
             <div class="porto-wrap text-left">
 
-               <?php
-               if( $get_folio_gallery->have_posts() ) :
-                  while ( $get_folio_gallery->have_posts() ) : $get_folio_gallery->the_post();
-               ?>
-               <?php 
-               $images = get_field('gallery');
-               if( $images ):
-                  // var_dump($images);
-               ?>
                <!-- .item-porto -->
-               <?php foreach( $images as $image ): ?>
+               <?php if ($images_gallery = get_field("gallery")) : ?>
+               <!-- <//?php  var_dump($images_gallery); ?> -->
+               <?php foreach( $images_gallery as $image ): ?>
+               <?php if ($image) : ?>
                <div class="item-porto">
                   <a class="gallery-link glightbox" data-glightbox="type: image"
                      href="<?php echo esc_url($image['url']); ?>">
@@ -96,19 +89,19 @@
                      </div>
                   </div>
                </div>
-               <?php endforeach; ?>
-               <!-- end .item-porto -->
                <?php endif; ?>
-               <?php endwhile;	
-                  wp_reset_postdata();	
-               endif; ?>
-
+               <?php endforeach; ?>
+               <?php endif; ?>
+               <!-- end .item-porto -->
             </div>
          </div>
       </div>
    </div>
 </section>
 
+<?php endwhile;	
+   wp_reset_postdata();	
+endif; ?>
 
 <?php
 }

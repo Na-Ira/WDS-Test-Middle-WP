@@ -42,37 +42,32 @@ function portfolio_gallery_script() {
 
 }
 
-/**
- * 
- * 
- * ========= Plugin Portfolio Gallery  =========
- *
- */
+
 // Register Plugin
 add_action( 'init', 'portfolio_gallery' );
 function portfolio_gallery() {
 	$labels = array(
-		'name'                  => _x( 'Portfolio Gallery', 'Post Type General Name', 'wdstestmiddle-child' ),
-		'singular_name'         => _x( 'Portfolio Gallery', 'Post Type General Name', 'wdstestmiddle-child' ),
-		'menu_name'             => _x( 'Portfolio Gallery', 'Admin Menu text', 'wdstestmiddle-child' ),
-		'name_admin_bar'        => _x( 'Custom Portfolio Gallery', 'Add New on Toolbar', 'wdstestmiddle-child' ),
-		'add_new'               => __( 'New Portfolio', 'wdstestmiddle-child' ),
-		'add_new_item'          => __( 'Add New Portfolio', 'wdstestmiddle-child' ),
-		'new_item'              => __( 'New Portfolio', 'wdstestmiddle-child' ),
-		'edit_item'             => __( 'Edit Portfolio', 'wdstestmiddle-child' ),
-		'view_item'             => __( 'View Portfolio', 'wdstestmiddle-child' ),
-		'all_items'             => __( 'All Portfolio', 'wdstestmiddle-child' ),
-		'parent_item_colon'     => __( 'Parent Portfolio:', 'wdstestmiddle-child' ),
-		'not_found'             => __( 'No portfolio found.', 'wdstestmiddle-child' ),
-		'not_found_in_trash'    => __( 'No portfolio found in Trash.', 'wdstestmiddle-child' ),
-		'insert_into_item'      => _x( 'Insert into Portfolio', 'wdstestmiddle-child' ),
-		'uploaded_to_this_item' => _x( 'Uploaded to this Portfolio', 'wdstestmiddle-child' ),
+		'name'                  => _x( 'Portfolio Gallery', 'gallery' ),
+		'singular_name'         => _x( 'Portfolio Gallery', 'gallery' ),
+		'menu_name'             => _x( 'Portfolio Gallery', 'gallery' ),
+		'name_admin_bar'        => _x( 'Custom Portfolio Gallery', 'gallery' ),
+		'add_new'               => __( 'New Portfolio', 'gallery' ),
+		'add_new_item'          => __( 'Add New Portfolio', 'gallery' ),
+		'new_item'              => __( 'New Portfolio', 'gallery' ),
+		'edit_item'             => __( 'Edit Portfolio', 'gallery' ),
+		'view_item'             => __( 'View Portfolio', 'gallery' ),
+		'all_items'             => __( 'All Portfolio', 'gallery' ),
+		'parent_item_colon'     => __( 'Parent Portfolio:', 'gallery' ),
+		'not_found'             => __( 'No portfolio found.', 'gallery' ),
+		'not_found_in_trash'    => __( 'No portfolio found in Trash.', 'gallery' ),
+		'insert_into_item'      => _x( 'Insert into Portfolio', 'gallery' ),
+		'uploaded_to_this_item' => _x( 'Uploaded to this Portfolio', 'gallery' ),
 	);
 
 	$args = array(
 		'labels'             => $labels,
-		'label'              => __( 'Portfolio Gallery', 'wdstestmiddle-child' ),
-		'description'        => __( 'Portfolio Gallery', 'wdstestmiddle-child' ),
+		'label'              => __( 'Portfolio Gallery', 'gallery' ),
+		'description'        => __( 'Portfolio Gallery', 'gallery' ),
 		'taxonomies'         => array( 'portfolio_category' ),
 		'public'             => true,
 		'publicly_queryable' => true,
@@ -96,7 +91,7 @@ function portfolio_gallery() {
 		'portfolio_category', 
 		'folio_gallery', 
 		array(
-		'label'        => __( 'Portfolio name', 'wdstestmiddle-child' ),
+		'label'        => __( 'Portfolio name', 'gallery' ),
 		'rewrite'      => array( 'slug' => 'folio_gallery/portfolio_category' ),
 		'hierarchical' => true
   ) );
