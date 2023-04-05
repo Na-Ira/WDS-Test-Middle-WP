@@ -115,9 +115,9 @@ h2 {
   font-size: 4.375rem;
   letter-spacing: 0.175rem;
 }
-h3, 
-h4, 
-h5, 
+h3,
+h4,
+h5,
 h6 {
   letter-spacing: 0.15rem;
   margin-bottom: 1.25rem;
@@ -525,7 +525,7 @@ Contact-form ----------
 09.======PAGE =================
 */
 .page header {
-background: var(--bg-2) url(./assets/img/decor.png) center center repeat;
+  background: var(--bg-2) url(./assets/img/decor.png) center center repeat;
 }
 .grey-color {
   color: #727272;
@@ -619,6 +619,7 @@ pre code {
   .navbar .navbar-container .navbar-toggler {
     margin-right: 2rem;
     padding: 0;
+    margin-left: auto;
   }
   .navbar .navbar-container .navbar-nav {
     padding-left: 2rem;
@@ -639,8 +640,8 @@ pre code {
 }
 @media (min-width: 992px) {
   .navbar .navbar-container {
-    padding-left: 3.75rem;
-    padding-right: 3.75rem;
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
   }
   .navbar .navbar-container .navbar-brand {
     margin-left: 0;
@@ -880,7 +881,6 @@ pre code {
   .about .about-container .about-text {
     padding: 4rem 0 4rem 2rem;
   }
-
 }
 
 @media (max-width: 778px) {
